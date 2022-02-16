@@ -23,7 +23,7 @@ if(isset($_POST['name'], $_POST['city'], $_POST['description'], $_POST['standard
   $obHotel -> name = $_POST['name'];
   $obHotel -> city = $_POST['city'];
   $obHotel -> description = $_POST['description'];
-  $obHotel -> standard = $_POST['opened'];
+  $obHotel -> standard = $_POST['standard'];
   $obHotel -> opened = $_POST['opened'];
   $obHotel -> update();
 

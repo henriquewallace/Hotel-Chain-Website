@@ -49,12 +49,21 @@ class Hotel{
    * @return boolean
    */
   public function register(){
-   
-    //insert hotel in database
-    $obDatabase = new Database('hotel');
-    $this->id = $obDatabase->insert(['name' => $this->name,'city' => $this->city, 'description' => $this->description, 'standard'=> $this->standard, 'opened'=> $this->opened]);
+   // consult if the register already exists
+   // var_dump($this->name);// show variable data or data array
+   //die();// stop the execution
 
+   $obDatabase = new Database('hotel');
+   $this->id = $obDatabase->insert(['name' => $this->name,'city' => $this->city, 'description' => $this->description, 'standard'=> $this->standard, 'opened'=> $this->opened]);
+
+  if($this->id == true){
     return true;
+  }else{
+    return false;
+  }
+
+
+  
   }
 
   /**
@@ -93,6 +102,18 @@ class Hotel{
   public static function getHotel($id){
     return (new Database('hotel'))->select('id = '.$id)
                                   ->fetchObject(self::class);
+  }
+
+    /**
+   * method responsable to search (by name) an hotel in database
+   * @param  str
+   * @return Hotel
+   */
+ 
+  public static function name_exists($name){
+    return (new Database('hotel'))->select('name = '.$name)
+                                  ->fetchObject(self::class);
+  
   }
 
 }

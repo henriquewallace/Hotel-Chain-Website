@@ -7,6 +7,8 @@ define('TITLE','Register hotel');
 use \App\Entity\Hotel;
 $obHotel = new Hotel;
 
+
+
 if(isset($_POST['name'], $_POST['city'], $_POST['description'], $_POST['standard'], $_POST['opened'])){
 
   $obHotel -> name = $_POST['name'];
@@ -14,9 +16,16 @@ if(isset($_POST['name'], $_POST['city'], $_POST['description'], $_POST['standard
   $obHotel -> description = $_POST['description'];
   $obHotel -> standard = $_POST['standard'];
   $obHotel -> opened = $_POST['opened'];
-  $obHotel -> register();
+ // $obHotel -> register();
 
-  header('location: index.php?status=success');
+  if($obHotel->register() == true){
+    header('location: index.php?status=success');
+  }
+    
+  else{
+    header('location: index.php?status=error');
+  }
+
   exit;
 }
 
