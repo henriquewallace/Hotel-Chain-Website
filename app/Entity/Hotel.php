@@ -53,17 +53,32 @@ class Hotel{
    // var_dump($this->name);// show variable data or data array
    //die();// stop the execution
 
-   $obDatabase = new Database('hotel');
-   $this->id = $obDatabase->insert(['name' => $this->name,'city' => $this->city, 'description' => $this->description, 'standard'=> $this->standard, 'opened'=> $this->opened]);
+   $host = 'localhost';
+   $database = 'hotel';
+   $port = '3306';
+   $user = 'root';
+   $pass = '';
 
-  if($this->id == true){
-    return true;
-  }else{
-    return false;
-  }
+   $pdo = new PDO('mysql:host=' . $host . ';dbname=' . $database . ';port=' . $port, $user, $pass);
+    
+   /* Select queries return a resultset */
+   $search = $pdo->prepare("SELECT name FROM hotel WHERE name = ? and city = ?"); // WHERE name = {$this->name}
+   $search->bindValue(1, $this->name);
+   $search->bindValue(2, $this->city);
+   $search->execute();
+    /*echo '<pre>';
+   var_dump($search->rowCount());
+   echo '<pre>';*/
 
-
-  
+    $result = $search->rowCount();
+    if($result > 0){
+      header('location: index.php?status=error');
+    }
+    else{
+      $obDatabase = new Database('hotel');
+      $this->id = $obDatabase->insert(['name' => $this->name,'city' => $this->city, 'description' => $this->description, 'standard'=> $this->standard, 'opened'=> $this->opened]);
+      header('location: index.php?status=success');
+    }
   }
 
   /**

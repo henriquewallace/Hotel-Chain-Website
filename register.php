@@ -16,15 +16,7 @@ if(isset($_POST['name'], $_POST['city'], $_POST['description'], $_POST['standard
   $obHotel -> description = $_POST['description'];
   $obHotel -> standard = $_POST['standard'];
   $obHotel -> opened = $_POST['opened'];
- // $obHotel -> register();
-
-  if($obHotel->register() == true){
-    header('location: index.php?status=success');
-  }
-    
-  else{
-    header('location: index.php?status=error');
-  }
+  $obHotel -> register();
 
   exit;
 }

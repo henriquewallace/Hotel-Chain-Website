@@ -24,7 +24,7 @@ class Database{
    * @var string
    */
   const USER = 'root';
-
+  
   /**
    * password
    * @var string
