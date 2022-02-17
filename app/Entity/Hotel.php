@@ -62,14 +62,11 @@ class Hotel{
    $pdo = new PDO('mysql:host=' . $host . ';dbname=' . $database . ';port=' . $port, $user, $pass);
     
    /* Select queries return a resultset */
-   $search = $pdo->prepare("SELECT name FROM hotel WHERE name = ? and city = ?"); // WHERE name = {$this->name}
+   $search = $pdo->prepare("SELECT name FROM hotel WHERE name = ? and city = ?");
    $search->bindValue(1, $this->name);
    $search->bindValue(2, $this->city);
    $search->execute();
-    /*echo '<pre>';
-   var_dump($search->rowCount());
-   echo '<pre>';*/
-
+    
     $result = $search->rowCount();
     if($result > 0){
       header('location: index.php?status=error');
